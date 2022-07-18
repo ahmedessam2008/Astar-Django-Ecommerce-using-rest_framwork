@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} | Orders{% endblock %}
+{% block content %}
+
+<div class="home_content">
+	<div class="home_title">Orders
+		<h3 class="footer_title">All Orders For, "{{ request.user.first_name }} {{request.user.last_name}}"</h3>
+	</div>
+</div>
+<!-- orders -->
+{% if not request.user.is_authenticated or request.user.is_anonymous %}
+<h2 class='alert alert-warning text-center'>You Must Be Login, <a href="{% url 'signin' %}">Login Now...</a></h2>
+{% elif all_orders %}
+
+<hr>
+<div class="section_container">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="cart_container">
+          {% if all_orders.count > 0 %}
+          <h5 class="alert alert-warning">Found {{ all_orders.count }} Orders</h5>
+          <!-- Cart Bar -->
+          <div class="cart_bar">
+            <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-start">
+              <li>#</li>
+              <li>Order Number</li>
+              <li>Date & Time</li>
+              <li>Items Count</li>
+              <li>Total</li>
+              <li>Complated</li>
+            </ul>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="cart_items">
+            <ul class="cart_items_list">
+      
+              {% for order in all_orders %}
+              <!-- Cart Item -->
+              <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start" style="height:50px;">
+                <div class="text-lg-left product_text">{{ forloop.counter }}</div>
+                <div class="text-lg-center product_text">{{ order.id }}</div>
+                <div class="text-lg-center product_text">{{ order.order_date }}</div>
+                <div class="text-lg-center product_text">{{ order.items_count }}</div>
+                <div class="text-lg-center product_text">{{ order.total }}</div>
+                <div class="text-lg-center product_text">{% if order.complated == True %}Yes{% else %}No{% endif %}</div>
+              </li>
+              <hr>
+              {% empty %}
+              <h4 class='alert alert-warning text-center'>No Order Details Here, <a href="{% url 'products' %}">Shopping Now...</a></h4>
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <h5 class='alert alert-warning text-center'>No Orders Here, <a href="{% url 'products' %}">Shopping Now...</a></h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+</div>
+{% endblock %}

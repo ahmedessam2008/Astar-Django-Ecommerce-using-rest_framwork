@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %} | Advanced search{% endblock %}
+{% block content %}
+<div id="advanced-search-form" class="products">
+  <div class="section_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Advanced Search</h2>
+          <form action="{% url 'products' %}" method='GET'>
+            <div class="row">
+              <div class="col-12">
+                <label for="producttitle">Product Name Or Contains</label>
+                <input type="text" name='productname' class="form-control" placeholder="Products" id="producttitle" />
+              </div>
+              <hr>
+              <div class="col-12">
+                <label for="category">Category</label>
+                <input type="text" name='category' class="form-control" placeholder="Category" id="Category" />
+              </div>
+            </div>
+            <hr>
+            <h3>Price Between</h3>
+            <div class="row">
+              <div class="col-6">
+                <label for="startprice">Start</label>
+                <input type="text" name='startprice' class="form-control" placeholder="Start" id="startprice" />
+              </div>
+              <div class="col-6">
+                <label for="endprice">End</label>
+                <input type="text" name='endprice' class="form-control" placeholder="End" id="endprice" />
+              </div>
+              <hr>
+              <div class="col-12">
+                <label for="color">Color</label>
+                <input type="text" name='color' class="form-control" placeholder="Color" id="color" />
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">
+              <span class="glyphicon glyphicon-search"></span>Search Now
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

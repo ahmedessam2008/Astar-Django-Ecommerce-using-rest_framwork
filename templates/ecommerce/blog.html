@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} | Blog{% endblock %}
+{% block content %}
+	<!-- Home -->
+
+	<div class="home">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/blog.jpg' %}" data-speed="0.8"></div>
+		<div class="home_container">
+			<div class="home_content">
+				<div class="home_title">The Blog</div>
+				<div class="breadcrumbs">
+					<ul class="d-flex flex-row align-items-center justify-content-start">
+						<li><a href="{% url 'index' %}">Home</a></li>
+						<li>Blog</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Blog -->
+
+	<div class="blog">
+		<div class="section_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						
+						<!-- Blog Posts -->
+						<div class="blog_bosts">
+							{% for blog in blogs|slice:'4' %}
+							<!-- Blog Post -->
+							<div class="blog_post">
+								{% if blog.blog_image %}
+								<div class="blog_post_image"><img src="{{ blog.blog_image.url }}" alt="https://unsplash.com/@saskiafairfull"></div>
+								{% else %}
+								<div class="blog_post_image"><img src="{{ blog.blogURL }}" alt="https://unsplash.com/@saskiafairfull"></div>
+								{% endif %}
+								<div class="blog_post_content">
+									<div class="blog_post_date"><a href="#">{{ blog.posted_date|date:'y D,m' }}</a></div>
+									<div class="blog_post_title"><a href="#">{{ blog.title }}</a></div>
+									<div class="blog_post_info d-flex flex-row align-items-start justify-content-start">
+										<div class="blog_post_author">By<a href="#"> {{ blog.user }}</a></div>
+										<div class="blog_post_category">
+											<ul>
+												<li>in <a href="#">{{ blog.category }}</a></li>
+											</ul>
+										</div>
+										<div class="blog_post_comments"><a href="#">3 Comments</a></div>
+									</div>
+									<div class="blog_post_text">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus. Lorem ipsum dolor sit amet, consectetur adipiscing eli t. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="row load_more_row">
+					<div class="col">
+						<div class="load_more_button trans_200 ml-auto mr-auto"><a href="#">load more</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

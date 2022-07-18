@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %} | Profile{% endblock %}
+<!-- Profile -->
+{% block content %}
+<div class="products profile">
+  <div class="section_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="confirm">
+            <i class="close">×</i>
+            <h2><i class="fa fa-check-circle fa-3x"></i>Boom! Profile Created</h2>
+          </div>
+          {% include 'parts/alerts.html' %}
+          {% if request.user.is_authenticated %}
+          <form method="POST" action="#" class='profile'>
+            {% csrf_token %}
+            <h2>
+              Create User Profile
+              <br />
+              <div class="image-upload">
+                <label for="file-input">
+                  <i class="fa fa-camera-retro fa-lg">
+                    <input id="file-input" type="file" />
+                  </i>
+                </label>
+              </div>
+            </h2>
+            <div class="row">
+              <div class="float-label col-6">
+                <input type="text" name="fname" id="f-name" placeholder='First Name' value="{{fname}}"/>
+              </div>
+              <div class="float-label col-6">
+                <input type="text" name="lname" id="l-name" placeholder='Last Name' value="{{lname}}" />
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="float-label col-6">
+                <input type="text" name="adress1" id="adress1" placeholder='adress1' value="{{adress1}}"/>
+              </div>
+              <div class="float-label col-6">
+                <input type="text" name="adress2" id="adress2" placeholder='adress2' value="{{adress2}}"/>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="float-label col-6">
+                <input type="text" name="country" id="country" placeholder='country' value="{{country}}"/>
+              </div>
+              <div class="float-label col-6">
+                <input type="text" name="zipcode" id="zipcode" placeholder='zipcode' value="{{zipcode}}"/>
+              </div>
+            </div>
+
+            <div class="float-label">
+              <input type="number" name="mobile" id="mobile" placeholder='mobile' value="{{mobile}}"/>
+            </div>
+
+            <div class="float-label">
+              <input type="email" name="email" id="email" placeholder='Email' value="{{email}}"/>
+            </div>
+
+            <!--Row-->
+            <div class="row">
+              <div class="float-label col-6">
+                <i class="fa fa-caret-down"></i>
+                <select name="gender" id="gender">
+                  <option value="{{gender}}">Male</option>
+                  <option value="{{gender}}">Female</option>
+                </select>
+              </div>
+
+              <div class="float-label col-6">
+                <input type="number" name="age" id="age" maxlength="2" placeholder='Age' value="{{age}}" />
+              </div>
+
+              <!--//row-->
+            </div>
+
+            <div class="float-label">
+              <input name="username" id="username" placeholder='username' value="{{username}}"></input>
+            </div>
+
+            <div class="float-label">
+              <fa class="fa eye fa-eye-slash"></fa>
+              <input type="password" name="password" id="pw" placeholder='Password' value="{{password}}"/>
+            </div>
+            <button name="btnsignsave" class="btn" type="submit">Submit</button>
+            <button class="btn" id="clear" type="reset" value="Reset">Reset</button>
+          </form>
+          {% else %}
+          <h2><i class="fa fa-check-circle fa-3x"></i>you Must Be login <a href="{% url 'signin' %}">login now</a></h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

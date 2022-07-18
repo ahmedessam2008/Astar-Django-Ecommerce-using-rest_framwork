@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} | Cart{% endblock %}
+{% block content %}
+<!-- Home -->
+
+<div class="home_content">
+	<div class="home_title">Cart
+		<h3 class="footer_title">Cart For, User "{{ order.user.first_name }} {{order.user.last_name}}"</h3>
+		<p class="newsletter_title" style="color:#cd8f8f;">Order Number : {{ order.id }}</p>
+		<p class="newsletter_title" style="color:#cd8f8f;">Items In Cart : {{ orderdetails.count }}</p>
+	</div>
+</div>
+
+<!-- Cart -->
+{% if not request.user.is_authenticated or request.user.is_anonymous %}
+<h2 class='alert alert-warning text-center'>You Must Be Login, <a href="{% url 'signin' %}">Login Now...</a></h2>
+{% elif order %}
+<div class="cart_section">
+
+ <!-- Order Details -->
+	<div class="section_container cart_extra_container">
+		<div class="container">
+			<div class="row">
+				
+				<!-- Shipping & Delivery -->
+				<div class="col-xxl-6">
+					<div class="cart_extra cart_extra_1">
+						<div class="cart_extra_content cart_extra_coupon">
+							<div class="shipping">
+								<div class="cart_extra_title">Shipping Method</div>
+								<ul>
+									<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+										<label class="radio_container">
+											<input type="radio" id="radio_1" name="shipping_radio" class="shipping_radio">
+											<span class="radio_mark"></span>
+											<span class="radio_text">Next day delivery</span>
+										</label>
+										<div class="shipping_price ml-auto">$4.99</div>
+									</li>
+									<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+										<label class="radio_container">
+											<input type="radio" id="radio_2" name="shipping_radio" class="shipping_radio">
+											<span class="radio_mark"></span>
+											<span class="radio_text">Standard delivery</span>
+										</label>
+										<div class="shipping_price ml-auto">$1.99</div>
+									</li>
+									<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+										<label class="radio_container">
+											<input type="radio" id="radio_3" name="shipping_radio" class="shipping_radio" checked>
+											<span class="radio_mark"></span>
+											<span class="radio_text">Personal Pickup</span>
+										</label>
+										<div class="shipping_price ml-auto">Free</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Cart Total -->
+				<div class="col-xxl-6">
+					<div class="cart_extra cart_extra_2">
+						<div class="cart_extra_content cart_extra_total">
+							<div class="cart_extra_title">Cart Total</div>
+							<ul class="cart_extra_total_list">
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_extra_total_title">Subtotal</div>
+									<div class="cart_extra_total_value ml-auto">${{total}}</div>
+								</li>
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_extra_total_title">Shipping</div>
+									<div class="cart_extra_total_value ml-auto">Free</div>
+								</li>
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_extra_total_title">Total</div>
+									<div class="cart_extra_total_value ml-auto">${{total}}</div>
+								</li>
+							</ul>
+							<div class="checkout_button trans_200"><a href="{% url 'payment' %}">proceed to checkout</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section_container">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h4 class="footer_title">Cart Products</h4>
+					<div class="cart_container">
+						<!-- Cart Bar -->
+						<div class="cart_bar">
+							<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-start">
+								<li>Image</li>
+								<li>Product</li>
+								<li>Color</li>
+								<li>Size</li>
+								<li>Price</li>
+								<li>Quantity</li>
+								<li>Subtotal</li>
+								<li>Control</li>
+							</ul>
+						</div>
+
+						<!-- Cart Items -->
+						<div class="cart_items">
+							<ul class="cart_items_list">
+								{% for detail in orderdetails %}
+								<!-- Cart Item -->
+								<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+									<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+										{% if detail.product.productimage %}
+										<div><div class="product_image"><img src="{{ detail.product.productimage.url }}" style="width:160px;height:160px;" alt=""></div></div>
+										{% else %}
+										<div><div class="product_image"><img src="{% static 'images/default.jpg' %}" style="width:160px;height:160px;" alt=""></div></div>
+										{% endif %}
+									</div>
+									<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+										<div class="product_name"><a href="{% url 'details' detail.product.id %}">{{ detail.product.title }}</a></div>
+									</div>
+									<div class="product_color text-lg-center product_text">{{ detail.product.colors }}</div>
+									<div class="product_size text-lg-center product_text">{{ detail.product.sizes }}</div>
+									<div class="product_price text-lg-center product_text">${{ detail.product.price }}</div>
+									<div class="product_quantity_container">
+										<div class="product_quantity ml-lg-auto mr-lg-auto text-center">
+											<span class="product_text product_num">{{ detail.quantity }}</span>
+											<div class="qty_sub qty_button trans_200 text-center"><a href="{% url 'decrease_qty' detail.id %}">-</a></div>
+											<div class="qty_add qty_button trans_200 text-center"><a href="{% url 'increase_qty' detail.id %}">+</a></div>
+										</div>
+									</div>
+									<div class="product_total text-lg-center product_text">${% widthratio detail.product.price 1 detail.quantity %}</div>
+									<div class="product_total text-lg-center product_text"><a href={% url 'remove_from_cart' detail.id %} class='btn btn-outline-danger btn-sm'>Remove</a></div>
+								</li>
+								{% empty %}
+								<h4 class='alert alert-warning text-center'>No Order Details Here, <a href="{% url 'products' %}">Shopping Now...</a></h4>
+								{% endfor %}
+							</ul>
+						</div>
+
+						<!-- Cart Buttons -->
+						<div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+							<div class="cart_buttons_inner ml-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+								<div class="button button_continue trans_200"><a href="{% url 'products' %}">continue shopping</a></div>
+								<div class="button button_clear trans_200"><a href="{% url 'empty_cart' order.id %}">clear cart</a></div>
+								<div class="button button_update trans_200"><a href="{% url 'favorites' %}">update cart</a></div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% else %}
+		<h5 class='alert alert-warning text-center'>No Orders Here, <a href="{% url 'products' %}">Shopping Now...</a></h5>
+	{% endif %}
+</div>
+{% endblock %}

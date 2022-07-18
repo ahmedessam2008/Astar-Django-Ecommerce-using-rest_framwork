@@ -1,0 +1,123 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} | Checkout{% endblock %} 
+{% block content %}
+<!-- Home -->
+
+<div class="home_content">
+  <div class="home_title">
+    Checkout {% if request.user.is_authenticated or not request.user.is_anonymous %}
+    <h3 class="footer_title">Cart For, User "{{ order.user.first_name }} {{order.user.last_name}}"</h3>
+    {% endif %}
+  </div>
+</div>
+<!-- Checkout -->
+{% include 'parts/alerts.html' %}
+{% if not request.user.is_authenticated or request.user.is_anonymous %}
+<h2 class="alert alert-warning text-center">You Must Be Login, <a href="{% url 'signin' %}">Login Now...</a></h2>
+{% elif order %} 
+<div class="checkout">
+  <div class="section_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+					<div class="checkout_container d-flex flex-xxl-row flex-column align-items-start justify-content-start">
+						<!-- Billing -->
+            <div class="billing checkout_box">
+							<div class="cart_total">
+								<div class="checkout_title">Cart total</div>
+								<ul class="cart_extra_total_list">
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Subtotal</div>
+										<div class="cart_extra_total_value ml-auto">${{total}}</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Shipping</div>
+										<div class="cart_extra_total_value ml-auto">Free</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Total</div>
+										<div class="cart_extra_total_value ml-auto">${{total}}</div>
+									</li>
+								</ul>
+							</div>
+							<hr>
+							<hr>
+							<hr>
+              <div class="checkout_title">Billing Address</div>
+							<div class="checkout_form_container">
+								<form method="POST" action="#" class='profile'>
+									{% csrf_token %}
+									<div class="row">
+										<div class="float-label col-12">
+											{% comment %} <input name="fname" type="text" id="checkout_name" class="checkout_input" placeholder="Name" required="required" /> {% endcomment %}
+											<input type="text" value={{ request.user.first_name|add:'-'|add:request.user.last_name}} name="fname" id="f-name" class="checkout_input" placeholder='First Name' disabled/>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="float-label col-12">
+											<input type="text" name="adress1" id="checkout_address" class="checkout_input" placeholder='adress1'/>
+										</div>
+									</div>
+									<hr>
+									<div class="float-label">
+										<input type="number" name="mobile" id="checkout_phone" class="checkout_input" placeholder='mobile'/>
+									</div>
+									<hr>
+									<div class="col-12">
+										<input id="paypal" type="radio" name="payment" value="paypal" />
+										<label for="paypal" class="">Paypal</label>
+										<hr>
+									</div>
+									<div class="col-12">
+										<input id="cod" type="radio" checked name="payment" value="cod" />
+										<label for="cod" class="">Cach on delivery</label>
+										<hr>
+									</div>	
+									<div class="col-12">
+										<div>
+											<input id="credit_select" type="radio" name="payment" value="credit" />
+											<label for="credit_select">Credit Card<label>
+										</div>
+										
+										<div>===================</div>
+										<!-- Card Details -->
+										
+										<div>
+											<label for="card_number">Card Number</label>
+											<input name="card_number" type="number" id="card_number" class="checkout_input" placeholder="0000 0000 0000 0000"/>
+										</div>
+										<hr>
+										<div>
+											<label for="expired">Expired<label>
+											<input name="expired" type="number" id="expired" class="checkout_input" placeholder="mm/YY"/>
+										</div>
+										<hr>
+										<div>
+											<label for="security_code">Security code</label>
+											<input name="security_code" type="number" id="security_code" class="checkout_input" placeholder="1234"/>
+										</div>
+									</div>
+									<hr>
+									<div class="col-12">
+										<input id="bank" type="radio" name="payment" value="bank" />
+										<label for="bank">Direct bank transfer</label>
+										<hr>
+									</div>
+									<button name="paymentbtn" class="btn checkout_button" type="submit">Payment Now</button>
+								</form>
+							</div>
+							
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<h2 class="alert alert-warning text-center">No Order Now , <a href="{% url 'signin' %}">Shopping...</a></h2>
+{% endif %} 
+
+{% endblock %}

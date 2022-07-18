@@ -1,0 +1,92 @@
+.products {
+  height: 100vh;
+  background: #1a1a1a;
+  margin-top: 0px;
+}
+.container__form {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
+#advanced-search-form {
+  height: 100%;
+  margin: 10px auto 0;
+  padding: 40px;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+#advanced-search-form label {
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+#advanced-search-form h2 {
+  padding-bottom: 20px;
+  font-size: 30px;
+  text-align: center;
+  color: #fff;
+  width: 300px;
+  height: 60px;
+  margin: 50px auto;
+}
+
+#advanced-search-form h3 {
+  margin: 13px 0 -22px 0;
+}
+
+#advanced-search-form hr {
+  width: 100%;
+  background-color: #92b12b;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+
+#advanced-search-form .form-control {
+  padding: 12px 20px;
+  height: auto;
+  border-radius: 2px;
+}
+
+#advanced-search-form .radio-inline {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#advanced-search-form .gender {
+  width: 30%;
+  margin-top: 30px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#advanced-search-form .btn {
+  width: 46%;
+  margin: 20px auto 0;
+  display: block;
+  outline: none;
+}
+
+@media screen and (max-width: 800px) {
+  #advanced-search-form .form-group {
+    width: 45%;
+  }
+
+  #advanced-search-form {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  #advanced-search-form .form-group {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  #advanced-search-form h2 {
+    text-align: center;
+  }
+}

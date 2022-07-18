@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} | Products{% endblock %}
+{% block content %}
+<!-- Products -->
+<div class="products">
+  <div class="section_container">
+    <h1 style="text-align: center; margin-bottom: 20px;">Products</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="products_container grid">
+						{% for product in products %}
+            <!-- Product -->
+						{% if product.category %}
+            <div class="product grid-item {{ product.category }}">
+						{% else %}
+						<div class="product grid-item">
+						{% endif %}
+              <div class="product_inner">
+                <div class="product_image">
+                  <!-- To open the images on clicked -->
+                  {% if product.productimage %}
+                  <a href="{{ product.productimage.url }}">
+                    <img src="{{ product.productimage.url }}" alt="{{ product.title }}" /></a>
+                  {% else %}
+                  <img src="{% static 'images/default.jpg' %}" alt="{{ product.title }}" />
+                  {% endif %}
+
+									{% if product.category %}
+                  <div class="product_tag">{{ product.category }}</div>
+									{% endif %}
+                </div>
+                <div class="product_content text-center">
+                  <div class="product_title"><a href="{% url 'details' product.id %}">{{ product.title }}t</a></div>
+                  <div class="product_price">${{ product.price }}
+										{% if product.rrp %}
+										<span>RRP {{ product.rrp }}</span>
+										{% endif %}
+									</div>
+                  <div class="product_button ml-auto mr-auto trans_200"><a href="{% url 'details' product.id %}">add to cart</a></div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <h4 class="alert alert-warning">No Products Here,
+              <a href="{% url "products" %}"> All Products.</a>
+            </h4>
+						{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

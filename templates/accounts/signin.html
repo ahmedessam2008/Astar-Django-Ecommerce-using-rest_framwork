@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %} | SignIn{% endblock %}
+<!-- Signin and Signup -->
+{% block content %}
+<div class="products profile">
+  <div class="section_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="confirm">
+            <h2><i class="fa fa-check-circle fa-3x"></i>SignIn Now..</h2>
+          </div>
+          {% include "parts/alerts.html" %}
+          {% if request.user.is_authenticated %}
+          <h2><i class="fa fa-check-circle fa-3x"></i>Welcome, {{ request.user.username }} You'r Now Logged In. <a href="{% url 'logout' %}">LogOut</a></h2>
+          {% else %}
+          <form method="POST" action="#" class='profile'>
+            {% csrf_token %}
+            <div class="float-label">
+              <input name="username" id="username" placeholder='username'></input>
+            </div>
+
+            <div class="float-label">
+              <fa class="fa eye fa-eye-slash"></fa>
+              <input type="password" name="password" id="pw" placeholder='Password'/>
+            </div>
+            <input type="checkbox" name="rememberme" id="rememberme" checked />
+            <label for="rememberme">Remember me</label>
+            <button name="btnsignin" type="submit" class="btn">Sign In</button>
+            <a href="#" class="btn btn-default">Forgot your password?</a>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

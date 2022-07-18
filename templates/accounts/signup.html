@@ -1,0 +1,101 @@
+{% extends 'base.html' %} {% load static %}
+{% block title %} | SignOut{% endblock %}
+<!-- Signin and Signup -->
+{% block content %}
+<div class="products profile">
+  <div class="section_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="confirm">
+            <i class="close">×</i>
+            <h2><i class="fa fa-check-circle fa-3x"></i>SignUp Now...</h2>
+          </div>
+          {% include "parts/alerts.html" %}
+          {% if is_added == True %}
+          <form method="POST" action="#" class='profile' style="display:none;">
+          {% else %}
+          <form method="POST" action="#" class='profile'>
+          {% endif %}
+            {% csrf_token %}
+            <h2>
+              <br />
+              <div class="image-upload">
+                <label for="file-input">
+                  <i class="fa fa-camera-retro fa-lg">
+                    <input id="file-input" type="file" />
+                  </i>
+                </label>
+              </div>
+            </h2>
+              <div class="row">
+                <div class="float-label col-6">
+                  <input type="text" name="fname" id="fname" placeholder="First Name" />
+                </div>
+                <div class="float-label col-6">
+                  <input type="text" name="lname" id="lname" placeholder="Last Name" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="float-label col-6">
+                  <input type="text" name="adress1" id="adress1" placeholder="adress1" />
+                </div>
+                <div class="float-label col-6">
+                  <input type="text" name="adress2" id="adress2" placeholder="adress2" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="float-label col-6">
+                  <input type="text" name="country" id="country" placeholder="country" />
+                </div>
+                <div class="float-label col-6">
+                  <input type="text" name="zipcode" id="zipcode" placeholder="zipcode" />
+                </div>
+              </div>
+
+              <div class="float-label">
+                <input type="number" name="mobile" id="mobile" placeholder="mobile" />
+              </div>
+
+              <div class="float-label">
+                <input type="email" name="email" id="email" placeholder="Email" />
+              </div>
+
+              <!--Row-->
+              <div class="row">
+                <div class="float-label col-6">
+                  <i class="fa fa-caret-down"></i>
+                  <select name="gender" id="gender">
+                    <option value="male" selected>Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+
+                <div class="float-label col-6">
+                  <input type="number" name="age" id="age" maxlength="2" placeholder="Age" />
+                </div>
+
+                <!--//row-->
+              </div>
+
+              <div class="float-label">
+                <input name="username" id="username" placeholder="username" ></input>
+              </div>
+
+              <div class="float-label">
+                <fa class="fa eye fa-eye-slash"></fa>
+                <input type="password" name="password" id="pw" placeholder="Password" />
+              </div>
+              <input type="checkbox" id="terms" name="terms" />
+              <label for="terms">i agree to the terms of use and privacy policy</label>
+              <button name="btnsignup" type="submit" class="btn">Sign Up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
