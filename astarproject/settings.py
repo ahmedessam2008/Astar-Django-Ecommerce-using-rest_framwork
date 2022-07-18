@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'astarproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'astar_restframwork_db',
+        'NAME': 'astardb',
         'USER': 'postgres',
         'PASSWORD': 'mazyazahmed',
         'HOST': 'localhost',
